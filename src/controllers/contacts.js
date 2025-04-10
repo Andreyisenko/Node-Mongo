@@ -3,6 +3,9 @@ import { getContacts, getContactsById } from '../services/contacts.js';
 import { createContacts } from '../services/contacts.js';
 import { deleteContacts } from '../services/contacts.js';
 import { updateContacts } from '../services/contacts.js';
+
+
+
 export const getContactsController = async (req, res) => {
   const data = await getContacts();
 
@@ -42,6 +45,9 @@ export const getContactsByIdController = async (req, res) => {
   // });
 };
 
+
+
+
 export const createContactsController = async (req, res) => {
   const contact = await createContacts(req.body);
   res.status(201).json({
@@ -79,7 +85,7 @@ export const upsertContactsController = async (req, res, next) => {
   });
 };
 
-export const patchContactsController = async (req, res) => {
+export const patchContactsController = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await updateContacts(contactId, req.body);
 
@@ -91,6 +97,6 @@ export const patchContactsController = async (req, res) => {
   res.json({
     status: 200,
     message: 'Successfully patched a contact!',
-    data: result.student,
+    data: result.data,
   });
 };
