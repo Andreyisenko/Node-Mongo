@@ -29,9 +29,22 @@ const contactSchema = new Schema(
   },
   {
     timestamps: true,
-    versionKey: false
+    versionKey: false,
   },
 );
+
+contactSchema.post('save', (error, doc, next) => {
+  error.status = 400;
+  next();
+});
+
+contactSchema.pre('findOneAndUpdate', function (next) {
+  (this.options.new = true), (this.options.runValidators = true), next();
+});
+contactSchema.post('findOneAndUpdate', (error, doc, next) => {
+  error.status = 400;
+  next();
+});
 
 const ContactCollection = model('contact', contactSchema);
 export default ContactCollection;

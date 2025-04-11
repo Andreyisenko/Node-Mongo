@@ -19,7 +19,7 @@ export const updateContacts = async (contactId, payload, option = {}) => {
     { _id: contactId },
     payload,
     {
-      new: true,
+  
       includeResultMetadata: true,
       ...option,
     },
